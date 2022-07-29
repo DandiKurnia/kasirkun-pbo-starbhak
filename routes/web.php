@@ -1,9 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MenuController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\JenisMenuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +21,15 @@ use App\Http\Controllers\DashboardController;
 
 // Dashboard
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
+
+// Menu
+Route::resource('/menu', MenuController::class);
+
+// Admin Menu
+Route::resource('/adminmenu', AdminController::class)->middleware('admin');
+
+// Jenis Menu
+Route::resource('/jenismenu', JenisMenuController::class);
 
 
 // Register
