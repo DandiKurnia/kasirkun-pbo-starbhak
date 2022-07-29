@@ -87,9 +87,19 @@ class MenuController extends Controller
      * @param  \App\Models\Menu  $menu
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Menu $menu)
+    public function update(Request $request, $id)
     {
-        //
+        $data = Menu::find($id);
+        
+        $data->update($request->all());
+        
+        if ($request->hasFile('gambar')) {
+            $request->file('gambar')->move('imageagenda/', $request->file('gambar')->getClientOriginalName());
+            $data->gambar = $request->file('gambar')->getClientOriginalName();
+            $data->save();
+        }
+
+        return redirect()->route('menu.index');
     }
 
     /**
@@ -98,8 +108,10 @@ class MenuController extends Controller
      * @param  \App\Models\Menu  $menu
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Menu $menu)
+    public function destroy($id)
     {
-        //
+        $data = Menu::find($id);
+        $data->delete();
+        return redirect()->route('menu.index');
     }
 }
