@@ -88,7 +88,7 @@
               <ul class="menu-sub">
                 <li class="menu-item">
                   <a href="/menu" class="menu-link">
-                    <div data-i18n="Without navbar">Daftar Menu</div>
+                    <div data-i18n="Without navbar">Daftar Menus</div>
                   </a>
                 </li>
                 <li class="menu-item">
