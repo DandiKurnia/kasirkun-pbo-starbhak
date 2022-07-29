@@ -43,7 +43,7 @@
                                 <div class="row g-2">
                                   <div class="col mb-2">
                                     <label for="emailWithTitle" class="form-label">jenis</label>
-                                    <select class="form-select" id="exampleFormControlSelect1" aria-label="Default select example">
+                                    <select class="form-select" name="jenis_menu_id" id="exampleFormControlSelect1" aria-label="Default select example">
                                       <option selected>Jenis Menu</option>
                                       @foreach ($jenismenu as $menu)
                                         <option value="{{$menu->id}}">{{ $menu->jenis_menu }}</option>
@@ -115,7 +115,7 @@
                                     <i class='bx bxs-edit-alt'></i>
                                 </button>
                               </div>
-                              <form method="POST" action="{{ url('jenismenu/'.$row->id) }}">
+                              <form method="POST" action="{{ url('menu/'.$row->id) }}">
                                 @csrf
                                 @method('delete')
                                 <button type="submit" class="btn btn-danger btn-sm"><i class='bx bx-trash'></i></button>
@@ -128,36 +128,71 @@
                   </table>
                 </div>
               </div>
-              @foreach ($data as $jenis)
-              <!-- Modal -->
-                      <form method="POST" action="{{ url('jenismenu/'.$jenis->id) }}">
-                          @csrf
-                          @method('put')
-                        <div class="modal fade" id="modalCenter2-{{ $jenis->id }}" tabindex="-1" aria-hidden="true">
-                          <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h5 class="modal-title" id="modalCenterTitle">Tambah Jenis Menu</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                              </div>
-                              <div class="modal-body">
-                                <div class="row">
-                                  <div class="col mb-3">
-                                    <label for="nameWithTitle" class="form-label">Name</label>
-                                    <input type="text" name="jenis_menu" id="nameWithTitle" class="form-control" placeholder="Enter Name" value="{{ $jenis->jenis_menu }}"/>
+              @foreach ($data as $menu)
+                <!-- Modal edit -->
+                <form method="POST" action="{{ url('menu/'.$menu->id) }}" enctype="multipart/form-data">
+                            @csrf
+                            @method('put')
+                          <div class="modal fade" id="modalCenter2-{{ $menu->id }}" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="modalCenterTitle">Tambah Jenis Menu</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <div class="row">
+                                    <div class="col mb-3">
+                                      <label for="nameWithTitle" class="form-label">Gambar</label>
+                                      <input class="form-control" type="file" name="gambar" id="formFile" />
+                                    </div>
+                                  </div>
+                                  <div class="row g-2">
+                                    <div class="col mb-2">
+                                      <label for="emailWithTitle" class="form-label">kode menu</label>
+                                      <input type="text" name="kode_menu" id="emailWithTitle" class="form-control" placeholder="xxxxxxxxx" value="{{ $menu->kode_menu }}"/>
+                                    </div>
+                                    <div class="col mb-2">
+                                      <label for="dobWithTitle" class="form-label">nama menu</label>
+                                      <input type="text" name="nama_menu" id="dobWithTitle" class="form-control" placeholder="Enter Name" value="{{ $menu->nama_menu }}"/>
+                                    </div>
+                                  </div>
+                                  <div class="row g-2">
+                                    <div class="col mb-2">
+                                      <label for="emailWithTitle" class="form-label">jenis</label>
+                                      <select class="form-select" id="exampleFormControlSelect1" aria-label="Default select example">
+                                        <option selected>Jenis Menu</option>
+                                        @foreach ($jenismenu as $menu1)
+                                          <option value="{{$menu1->id}}">{{ $menu1->jenis_menu }}</option>
+                                        @endforeach
+                                      </select>
+                                    </div>
+                                    <div class="col mb-2">
+                                      <label for="dobWithTitle" class="form-label">deskripsi</label>
+                                      <input type="text" name="deskripsi" id="dobWithTitle" class="form-control" placeholder="Enter Deskripsi" value="{{ $menu->deskripsi }}"/>
+                                    </div>
+                                  </div>
+                                  <div class="row g-2">
+                                    <div class="col mb-2">
+                                      <label for="emailWithTitle" class="form-label">Satuan</label>
+                                      <input type="text" name="satuan" id="emailWithTitle" class="form-control" placeholder="Enter Satuan" value="{{ $menu->satuan }}"/>
+                                    </div>
+                                    <div class="col mb-2">
+                                      <label for="dobWithTitle" class="form-label">harga</label>
+                                      <input type="number" name="harga" id="dobWithTitle" class="form-control" placeholder="Enter Harga" value="{{ $menu->harga }}"/>
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                                  Close
-                                </button>
-                                <button type="submit" class="btn btn-primary">Tambah</button>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                    Close
+                                  </button>
+                                  <button type="submit" class="btn btn-primary">Tambah</button>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      </form>
-              @endforeach
+                </form>
+                @endforeach
     </div>
 @endsection
