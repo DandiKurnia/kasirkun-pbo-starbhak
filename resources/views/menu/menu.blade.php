@@ -6,13 +6,12 @@
                 <div class="col-6">
                     <h5 class="card-header">Menu</h5>
                 </div>
-                <div class="col-6 p-3 d-flex justify-content-end">
-                  <div class="me-2">
+                <div class="col-6 p-lg-3 p-2 d-flex justify-content-end">
+                  <div class="me-lg-2">
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCenter">
+                        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalCenter">
                           Add Menu +
                         </button>
-
                         <!-- Modal -->
                         <form method="POST" action="{{ url('menu') }}" enctype="multipart/form-data">
                           @csrf
