@@ -11,7 +11,9 @@ class JenisMenu extends Model
 
     protected $table = 'jenis_menus';
 
-    protected $guarded = [''];
+    protected $fillable = [
+        'jenis_menu'
+    ];
 
     public function user(){
         return $this->hasMany(Menu::class);
