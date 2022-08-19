@@ -15,9 +15,16 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $data = Menu::all();
-        $jenismenu = JenisMenu::all();
-        return view('menu.menu', compact('data','jenismenu'));
+         //get posts
+         $menu = Menu::latest()->paginate(5);
+         $jenismenu = JenisMenu::latest()->paginate(5);
+
+         //return collection of posts as a resource
+         return new PostResource(true, 'List Data Posts', $menu, $jenismenu);
+
+        // $data = Menu::all();
+        // $jenismenu = JenisMenu::all();
+        // return view('menu.menu', compact('data','jenismenu'));
     }
 
     /**
