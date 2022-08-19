@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Http\Request;
@@ -18,4 +19,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('/jenismenu', App\Http\Controllers\JenisMenuController::class);
+Route::apiResource('/jenismenu', App\Http\Controllers\api\JenisMenuController::class);
+Route::apiResource('/menu', App\Http\Controllers\JenisMenuController::class);

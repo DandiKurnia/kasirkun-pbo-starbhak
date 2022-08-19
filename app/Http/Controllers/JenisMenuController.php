@@ -20,12 +20,6 @@ class JenisMenuController extends Controller
      */
     public function index()
     {
-        //get posts
-        $jenismenu = JenisMenu::latest()->paginate(5);
-
-        //return collection of posts as a resource
-        return new PostResource(true, 'List Data Posts', $jenismenu);
-
         // $data = JenisMenu::all();
         // return view('jenismenu.jenismenu',compact('data'));
     }
