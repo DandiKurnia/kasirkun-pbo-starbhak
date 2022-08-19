@@ -73,9 +73,9 @@ class JenisMenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(JenisMenu $jenismenu)
     {
-        //
+        return new PostResource(true, 'Data Post Ditemukan!', $jenismenu);
     }
 
     /**
@@ -96,9 +96,42 @@ class JenisMenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, JenisMenu $jenismenu)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'jenis_menu' => 'required'
+            ]);
+    
+            //check if validation fails
+            if ($validator->fails()) {
+                return response()->json($validator->errors(), 422);
+            }
+    
+            // //check if image is not empty
+            if ($request->hasFile('image')) {
+    
+                // //upload image
+                // $image = $request->file('image');
+                // $image->storeAs('public/posts', $image->hashName());
+    
+                //delete old image
+                // Storage::delete('public/posts/' . $post->image);
+    
+                //update post with new image
+                $jenismenu->update([
+                    // 'image'     => $image->hashName(),
+                    'jenis_menu'     => $request->jenis_menu,
+                ]);
+            } else {
+    
+                //update post without image
+                $jenismenu->update([
+                    'jenis_menu'     => $request->jenis_menu,
+                ]);
+            }
+    
+            //return response
+            return new PostResource(true, 'Data Post Berhasil Diubah!', $jenismenu);
     }
 
     /**
@@ -107,8 +140,12 @@ class JenisMenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(JenisMenu $jenismenu)
     {
-        //
+        //delete post
+        $jenismenu->delete();
+
+        //return response
+        return new PostResource(true, 'Data Post Berhasil Dihapus!', null);
     }
 }
