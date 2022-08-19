@@ -44,7 +44,27 @@ class JenisMenuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //define validation rules
+        $validator = Validator::make($request->all(), [
+            'jenis_menu'     => 'required'
+        ]);
+
+        //check if validation fails
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        //upload image
+        // $image = $request->file('image');
+        // $image->storeAs('public/posts', $image->hashName());
+
+        //create post
+        $jenismenu = JenisMenu::create([
+            'jenis_menu'     => $request->jenis_menu,
+        ]);
+
+        //return response
+        return new PostResource(true, 'Data Post Berhasil Ditambahkan!', $jenismenu);
     }
 
     /**
