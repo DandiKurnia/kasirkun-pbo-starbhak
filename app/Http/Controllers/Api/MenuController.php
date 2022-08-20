@@ -109,9 +109,56 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Menu $menu)
     {
-        
+        $validator = Validator::make($request->all(), [
+            'kode_menu' => 'required',
+            'nama_menu' => 'required',
+            'jenis_menu_id' => 'required',
+            'deskripsi' => 'required',
+            'satuan' => 'required',
+            'harga' => 'required'
+        ]);
+
+        //check if validation fails
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        //check if image is not empty
+        if ($request->hasFile('gambar')) {
+
+            //upload image
+            $gambar = $request->file('gambar');
+            $gambar->storeAs('public/posts', $gambar->hashName());
+
+            //delete old image
+            Storage::delete('public/posts/' . $menu->image);
+
+            //update post with new image
+            $menu->update([
+                'gambar'     => $gambar->hashName(),
+                'kode_menu'     => $request->kode_menu,
+                'nama_menu'   => $request->nama_menu,
+                'jenis_menu_id'   => $request->jenis_menu_id,
+                'deskripsi'   => $request->deskripsi,
+                'satuan'   => $request->satuan,
+                'harga'   => $request->harga
+            ]);
+        } else {
+
+            //update post without image
+            $menu->update(['kode_menu'     => $request->kode_menu,
+                'nama_menu'   => $request->nama_menu,
+                'jenis_menu_id'   => $request->jenis_menu_id,
+                'deskripsi'   => $request->deskripsi,
+                'satuan'   => $request->satuan,
+                'harga'   => $request->harga
+            ]);
+        }
+
+        //return response
+        return new PostResource(true, 'Data Post Berhasil Diubah!', $menu);
     }
 
     /**
