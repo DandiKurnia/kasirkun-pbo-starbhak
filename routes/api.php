@@ -20,4 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('/jenismenu', App\Http\Controllers\api\JenisMenuController::class);
-Route::apiResource('/menu', App\Http\Controllers\JenisMenuController::class);
+Route::apiResource('/menu', App\Http\Controllers\api\MenuController::class);
