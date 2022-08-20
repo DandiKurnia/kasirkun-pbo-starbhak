@@ -62,12 +62,12 @@ class MenuController extends Controller
         }
 
         //upload image
-        $gambar = $request->file('gambar');
-        $gambar->storeAs('public/posts', $gambar->hashName());
+        $image = $request->file('gambar');
+        $image->storeAs('public/posts', $image->hashName());
 
         //create post
         $menu = Menu::create([
-            'gambar'     => $gambar->hashName(),
+            'gambar'     => $image->hashName(),
             'kode_menu'     => $request->kode_menu,
             'nama_menu'   => $request->nama_menu,
             'jenis_menu_id'   => $request->jenis_menu_id,
